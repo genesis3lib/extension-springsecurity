@@ -1,0 +1,95 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-users-table
+      author: genesis3
+      changes:
+        - createTable:
+            schemaName: ${spring.liquibase.default-schema}
+            tableName: users
+            columns:
+              # BaseEntity fields
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: delete_reason
+                  type: TEXT
+              - column:
+                  name: tenant_id
+                  type: TEXT
+              - column:
+                  name: created_time
+                  type: BIGINT
+                  defaultValueComputed: "EXTRACT(EPOCH FROM NOW()) * 1000"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: modified_time
+                  type: BIGINT
+                  defaultValueComputed: "EXTRACT(EPOCH FROM NOW()) * 1000"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: TEXT
+              - column:
+                  name: modified_by
+                  type: TEXT
+              - column:
+                  name: slug
+                  type: TEXT
+              # UserEntity specific fields
+              - column:
+                  name: username
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: first_name
+                  type: VARCHAR(100)
+              - column:
+                  name: last_name
+                  type: VARCHAR(100)
+              - column:
+                  name: enabled
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: VARCHAR(50)
+                  defaultValue: USER
+                  constraints:
+                    nullable: false
+        - createIndex:
+            schemaName: ${spring.liquibase.default-schema}
+            indexName: idx_user_email
+            tableName: users
+            columns:
+              - column:
+                  name: email
+        - createIndex:
+            schemaName: ${spring.liquibase.default-schema}
+            indexName: idx_user_username
+            tableName: users
+            columns:
+              - column:
+                  name: username

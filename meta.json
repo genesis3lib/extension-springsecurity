@@ -1,0 +1,100 @@
+{
+  "version": "3.0.0",
+
+  "metadata": {
+    "id": "extension-springsecurity",
+    "name": "Spring Security & User Management",
+    "kind": "extension",
+    "type": "springsecurity",
+    "layers": ["backend"],
+    "description": "Adds Spring Security with user authentication, role-based access control, and user management",
+    "version": "1.0.0",
+    "author": "Genesis Team",
+    "tags": ["security", "authentication", "spring-security", "users", "rbac"],
+    "compatibleWith": ["spring"],
+    "dependsOn": ["extension-database"],
+    "springProfiles": ["security"],
+    "allowMultiple": false
+  },
+
+  "scaffoldConfigTemplate": [
+    {
+      "key": "enableJwtAuth",
+      "label": "Enable JWT Authentication",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "description": "Enable JWT token-based authentication",
+      "category": "authentication"
+    },
+    {
+      "key": "jwtSecretKey",
+      "label": "JWT Secret Key",
+      "type": "text",
+      "default": "",
+      "required": false,
+      "description": "Secret key for signing JWT tokens (leave empty to auto-generate)",
+      "category": "authentication",
+      "visibleWhen": "enableJwtAuth == true"
+    },
+    {
+      "key": "jwtExpirationHours",
+      "label": "JWT Expiration (hours)",
+      "type": "number",
+      "default": 24,
+      "required": false,
+      "description": "JWT token expiration time in hours",
+      "category": "authentication",
+      "visibleWhen": "enableJwtAuth == true"
+    }
+  ],
+
+  "dependencies": {
+    "gradle": [
+      "implementation 'org.springframework.boot:spring-boot-starter-security'",
+      "implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'",
+      "implementation 'org.apache.commons:commons-lang3:3.18.0'"
+    ],
+    "maven": [
+      "<dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-security</artifactId></dependency>",
+      "<dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-oauth2-resource-server</artifactId></dependency>",
+      "<dependency><groupId>org.apache.commons</groupId><artifactId>commons-lang3</artifactId><version>3.18.0</version></dependency>"
+    ]
+  },
+
+  "files": [
+    "backend/src/main/java/{{packagePath}}/jpa/entity/UserEntity.java.mustache",
+    "backend/src/main/java/{{packagePath}}/jpa/enumtype/UserRole.java.mustache",
+    "backend/src/main/java/{{packagePath}}/jpa/repository/UserRepository.java.mustache",
+    "backend/src/main/resources/db/changelog/db.changelog-master.yaml.mustache",
+    "backend/src/main/resources/db/changelog/changes/001-create-users-table.yaml.mustache"
+  ],
+
+  "generation": {
+    "files": {
+      "remove": []
+    },
+    "postProcess": []
+  },
+
+  "runtimeConfigTemplate": [
+    {
+      "key": "JWT_SECRET_KEY",
+      "description": "Secret key for JWT token signing",
+      "example": "your-256-bit-secret-key",
+      "required": true,
+      "secret": true,
+      "targets": ["backend"]
+    },
+    {
+      "key": "JWT_EXPIRATION_MS",
+      "description": "JWT token expiration in milliseconds",
+      "example": "86400000",
+      "required": false,
+      "secret": false,
+      "targets": ["backend"]
+    }
+  ],
+
+  "gitignore": []
+}
