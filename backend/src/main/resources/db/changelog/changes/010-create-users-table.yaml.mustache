@@ -68,17 +68,23 @@ databaseChangeLog:
                   name: last_name
                   type: VARCHAR(100)
               - column:
+                  name: picture
+                  type: VARCHAR(500)
+              - column:
+                  name: external_auth_provider
+                  type: VARCHAR(50)
+              - column:
+                  name: external_auth_id
+                  type: VARCHAR(255)
+              - column:
                   name: enabled
                   type: BOOLEAN
                   defaultValueBoolean: true
                   constraints:
                     nullable: false
               - column:
-                  name: role
-                  type: VARCHAR(50)
-                  defaultValue: USER
-                  constraints:
-                    nullable: false
+                  name: roles
+                  type: TEXT
         - createIndex:
             schemaName: ${spring.liquibase.default-schema}
             indexName: idx_user_email
@@ -93,3 +99,12 @@ databaseChangeLog:
             columns:
               - column:
                   name: username
+        - createIndex:
+            schemaName: ${spring.liquibase.default-schema}
+            indexName: idx_user_external_auth
+            tableName: users
+            columns:
+              - column:
+                  name: external_auth_provider
+              - column:
+                  name: external_auth_id

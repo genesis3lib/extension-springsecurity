@@ -34,13 +34,21 @@ public class UserEntity extends BaseEntity {
     @Column(name = "last_name", length = 100)
     private String lastName;
 
+    @Column(name = "picture", length = 500)
+    private String picture;
+
+    @Column(name = "external_auth_provider", length = 50)
+    private String externalAuthProvider;
+
+    @Column(name = "external_auth_id", length = 255)
+    private String externalAuthId;
+
     @Column(name = "enabled", nullable = false)
     @Builder.Default
     private Boolean enabled = true;
 
-    @Column(name = "role", nullable = false, length = 50)
-    @Builder.Default
-    private String role = "USER";
+    @Column(name = "roles")
+    private java.util.List<{{javaPackageFull}}.jpa.enumtype.UserRole> roles;
 
     /**
      * Get user's full name

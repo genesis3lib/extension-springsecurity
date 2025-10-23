@@ -1,8 +1,11 @@
 package {{{javaPackageFull}}}.jpa.repository;
 
 import {{{javaPackageFull}}}.jpa.entity.UserEntity;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,6 +31,48 @@ public interface UserRepository extends BaseRepository<UserEntity> {
      * @return Optional containing the user if found
      */
     Optional<UserEntity> findByEmail(String email);
+
+    /**
+     * Find user by email (excluding soft-deleted users)
+     *
+     * @param email the email to search for
+     * @return Optional containing the user if found
+     */
+    Optional<UserEntity> findByEmailAndDeletedFalse(String email);
+
+    /**
+     * Find user by slug (excluding soft-deleted users)
+     *
+     * @param slug the slug to search for
+     * @return Optional containing the user if found
+     */
+    Optional<UserEntity> findBySlugAndDeletedFalse(String slug);
+
+    /**
+     * Find user by external auth provider and ID (excluding soft-deleted users)
+     *
+     * @param provider the external auth provider
+     * @param externalId the external auth ID
+     * @return Optional containing the user if found
+     */
+    Optional<UserEntity> findByExternalAuthProviderAndExternalAuthIdAndDeletedFalse(String provider, String externalId);
+
+    /**
+     * Find all users by tenant ID (excluding soft-deleted users)
+     *
+     * @param tenantId the tenant ID
+     * @return List of users
+     */
+    List<UserEntity> findByTenantIdAndDeletedFalse(String tenantId);
+
+    /**
+     * Find all users with a specific role (excluding soft-deleted users)
+     *
+     * @param role the role value (comma-separated string)
+     * @return List of users
+     */
+    @Query("SELECT u FROM UserEntity u WHERE u.deleted = false AND u.roles LIKE CONCAT('%', :role, '%')")
+    List<UserEntity> findByRoleAndDeletedFalse(@Param("role") String role);
 
     /**
      * Check if username exists
