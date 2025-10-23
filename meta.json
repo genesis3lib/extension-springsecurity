@@ -66,8 +66,7 @@
     "backend/src/main/java/{{packagePath}}/jpa/entity/UserEntity.java.mustache",
     "backend/src/main/java/{{packagePath}}/jpa/enumtype/UserRole.java.mustache",
     "backend/src/main/java/{{packagePath}}/jpa/repository/UserRepository.java.mustache",
-    "backend/src/main/resources/db/changelog/db.changelog-master.yaml.mustache",
-    "backend/src/main/resources/db/changelog/changes/001-create-users-table.yaml.mustache"
+    "backend/src/main/resources/db/changelog/changes/010-create-users-table.yaml.mustache"
   ],
 
   "generation": {
