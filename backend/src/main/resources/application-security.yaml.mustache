@@ -1,0 +1,20 @@
+app:
+  security:
+    cors:
+      origins: "http://localhost:*,https://*.{{{domain}}},https://{{{domain}}}"
+      allowed-methods: "GET,POST,PUT,DELETE,PATCH,OPTIONS"
+      allowed-headers: "*"
+      allow-credentials: true
+      max-age: 3600
+    public-uris: "/,/api/health,/api/public/**,/pub/**,/v3/api-docs/**,/swagger-ui/**,/actuator/health,/index.html,/error,/favicon.ico"
+  users:
+    root: ${APP_ROOT_USERS:}
+    admins: ${APP_ADMIN_USERS:}
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER_URI:}
+          jwk-set-uri: ${JWT_JWK_SET_URI:}

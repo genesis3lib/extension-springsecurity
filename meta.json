@@ -63,9 +63,11 @@
   },
 
   "files": [
+    "backend/src/main/java/{{packagePath}}/config/SecurityConfig.java.mustache",
     "backend/src/main/java/{{packagePath}}/jpa/entity/UserEntity.java.mustache",
     "backend/src/main/java/{{packagePath}}/jpa/enumtype/UserRole.java.mustache",
     "backend/src/main/java/{{packagePath}}/jpa/repository/UserRepository.java.mustache",
+    "backend/src/main/resources/application-security.yaml.mustache",
     "backend/src/main/resources/db/changelog/changes/010-create-users-table.yaml.mustache"
   ],
 
@@ -89,6 +91,38 @@
       "key": "JWT_EXPIRATION_MS",
       "description": "JWT token expiration in milliseconds",
       "example": "86400000",
+      "required": false,
+      "secret": false,
+      "targets": ["backend"]
+    },
+    {
+      "key": "JWT_ISSUER_URI",
+      "description": "JWT token issuer URI (for OAuth2 resource server)",
+      "example": "https://auth.example.com",
+      "required": false,
+      "secret": false,
+      "targets": ["backend"]
+    },
+    {
+      "key": "JWT_JWK_SET_URI",
+      "description": "JWT JWK Set URI for token validation",
+      "example": "https://auth.example.com/.well-known/jwks.json",
+      "required": false,
+      "secret": false,
+      "targets": ["backend"]
+    },
+    {
+      "key": "APP_ROOT_USERS",
+      "description": "Comma-separated list of root user emails or usernames",
+      "example": "root@example.com,admin@example.com",
+      "required": false,
+      "secret": false,
+      "targets": ["backend"]
+    },
+    {
+      "key": "APP_ADMIN_USERS",
+      "description": "Comma-separated list of admin user emails or usernames",
+      "example": "admin1@example.com,admin2@example.com",
       "required": false,
       "secret": false,
       "targets": ["backend"]
