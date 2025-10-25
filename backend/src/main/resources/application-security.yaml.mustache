@@ -6,7 +6,7 @@ app:
       allowed-headers: "*"
       allow-credentials: true
       max-age: 3600
-    public-uris: "/,/api/health,/api/public/**,/pub/**,/v3/api-docs/**,/swagger-ui/**,/actuator/health,/index.html,/error,/favicon.ico"
+    public-uris: "/,/api/v1/public/**,/v3/api-docs/**,/swagger-ui/**,/actuator/health,/index.html,/error,/favicon.ico"
   users:
     root: ${APP_ROOT_USERS:}
     admins: ${APP_ADMIN_USERS:}

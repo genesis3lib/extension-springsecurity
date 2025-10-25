@@ -1,0 +1,66 @@
+package {{{javaPackageFull}}}.controller.secure;
+
+import {{{javaPackageFull}}}.model.base.ResponseBody;
+import {{{javaPackageFull}}}.model.rsp.UserRsp;
+import {{{javaPackageFull}}}.service.UserService;
+import {{{javaPackageFull}}}.jpa.entity.UserEntity;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
+
+/**
+ * User Profile Controller for {{{projectName}}}
+ *
+ * Provides endpoints for authenticated users to access their profile information
+ */
+@Slf4j
+@RestController
+@RequestMapping("/api/v1/user")
+@RequiredArgsConstructor
+public class UserProfileController {
+
+    private final UserService userService;
+
+    /**
+     * Get the current user's profile
+     *
+     * @param jwt The JWT token of the authenticated user
+     * @return The user's profile information
+     */
+    @GetMapping("/profile")
+    public ResponseEntity<ResponseBody<UserRsp>> getProfile(@AuthenticationPrincipal Jwt jwt) {
+        String email = jwt.getClaimAsString("email");
+
+        log.debug("Fetching profile for user: {}", email);
+
+        UserEntity user = userService.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("User not found: " + email));
+
+        UserRsp userRsp = UserRsp.builder()
+            .id(user.getId())
+            .username(user.getUsername())
+            .email(user.getEmail())
+            .firstName(user.getFirstName())
+            .lastName(user.getLastName())
+            .picture(user.getPicture())
+            .externalAuthProvider(user.getExternalAuthProvider())
+            .externalAuthId(user.getExternalAuthId())
+            .enabled(user.getEnabled())
+            .roles(user.getRoles())
+            .build();
+
+        ResponseBody<UserRsp> responseBody = ResponseBody.<UserRsp>builder()
+            .requestId(UUID.randomUUID().toString())
+            .response(userRsp)
+            .build();
+
+        return ResponseEntity.ok(responseBody);
+    }
+}

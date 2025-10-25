@@ -64,6 +64,7 @@
 
   "files": [
     "backend/src/main/java/{{packagePath}}/config/SecurityConfig.java.mustache",
+    "backend/src/main/java/{{packagePath}}/controller/secure/UserProfileController.java.mustache",
     "backend/src/main/java/{{packagePath}}/jpa/entity/UserEntity.java.mustache",
     "backend/src/main/java/{{packagePath}}/jpa/enumtype/UserRole.java.mustache",
     "backend/src/main/java/{{packagePath}}/jpa/repository/UserRepository.java.mustache",
