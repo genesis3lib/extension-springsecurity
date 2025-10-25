@@ -1,0 +1,27 @@
+package {{{javaPackageFull}}}.model.rsp;
+
+import {{{javaPackageFull}}}.model.base.ResponseBase;
+import {{{javaPackageFull}}}.jpa.enumtype.UserRole;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserRsp implements ResponseBase {
+    private Long id;
+    private String username;
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String picture;
+    private String externalAuthProvider;
+    private String externalAuthId;
+    private Boolean enabled;
+    private List<UserRole> roles;
+}
