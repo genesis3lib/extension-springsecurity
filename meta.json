@@ -43,9 +43,9 @@
       "key": "jwtSecretKey",
       "label": "JWT Secret Key",
       "type": "text",
-      "default": "",
+      "default": "runtime",
       "required": false,
-      "description": "Secret key for signing JWT tokens (leave empty to auto-generate)",
+      "description": "Secret key for signing JWT tokens (auto-generated)",
       "category": "authentication",
       "visibleWhen": "enableJwtAuth == true"
     },
