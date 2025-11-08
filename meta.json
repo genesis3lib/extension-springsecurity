@@ -76,6 +76,9 @@
     "files": {
       "remove": []
     },
+    "layers": {
+      "backend": {}
+    },
     "postProcess": []
   },
   "runtimeConfigTemplate": [
