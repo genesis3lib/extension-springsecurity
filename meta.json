@@ -38,26 +38,6 @@
       "required": false,
       "description": "Enable JWT token-based authentication",
       "category": "authentication"
-    },
-    {
-      "key": "jwtSecretKey",
-      "label": "JWT Secret Key",
-      "type": "text",
-      "default": "runtime",
-      "required": false,
-      "description": "Secret key for signing JWT tokens (auto-generated)",
-      "category": "authentication",
-      "visibleWhen": "enableJwtAuth == true"
-    },
-    {
-      "key": "jwtExpirationHours",
-      "label": "JWT Expiration (hours)",
-      "type": "number",
-      "default": 24,
-      "required": false,
-      "description": "JWT token expiration time in hours",
-      "category": "authentication",
-      "visibleWhen": "enableJwtAuth == true"
     }
   ],
   "dependencies": {
@@ -90,7 +70,8 @@
       "secret": true,
       "targets": [
         "backend"
-      ]
+      ],
+      "commonForAllEnv": false
     },
     {
       "key": "JWT_EXPIRATION_MS",
@@ -100,7 +81,8 @@
       "secret": false,
       "targets": [
         "backend"
-      ]
+      ],
+      "commonForAllEnv": true
     },
     {
       "key": "JWT_ISSUER_URI",
@@ -110,7 +92,8 @@
       "secret": false,
       "targets": [
         "backend"
-      ]
+      ],
+      "commonForAllEnv": false
     },
     {
       "key": "JWT_JWK_SET_URI",
@@ -120,27 +103,30 @@
       "secret": false,
       "targets": [
         "backend"
-      ]
+      ],
+      "commonForAllEnv": false
     },
     {
       "key": "APP_ROOT_USERS",
-      "description": "Comma-separated list of root user emails or usernames",
+      "description": "Comma-separated list of root user emails",
       "example": "root@example.com,admin@example.com",
       "required": false,
       "secret": false,
       "targets": [
         "backend"
-      ]
+      ],
+      "commonForAllEnv": false
     },
     {
       "key": "APP_ADMIN_USERS",
-      "description": "Comma-separated list of admin user emails or usernames",
+      "description": "Comma-separated list of admin user emails",
       "example": "admin1@example.com,admin2@example.com",
       "required": false,
       "secret": false,
       "targets": [
         "backend"
-      ]
+      ],
+      "commonForAllEnv": false
     }
   ],
   "gitignore": []
