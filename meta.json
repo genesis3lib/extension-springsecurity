@@ -16,7 +16,8 @@
       "authentication",
       "spring-security",
       "users",
-      "rbac"
+      "rbac",
+      "spring"
     ],
     "compatibleWith": [
       "spring"
@@ -67,6 +68,7 @@
       "description": "Secret key for JWT token signing",
       "example": "your-256-bit-secret-key",
       "required": true,
+      "default": "runtime",
       "secret": true,
       "targets": [
         "backend"
