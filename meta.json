@@ -19,6 +19,7 @@
       "rbac",
       "spring"
     ],
+    "providers": ["aws"],
     "compatibleWith": [
       "spring"
     ],
