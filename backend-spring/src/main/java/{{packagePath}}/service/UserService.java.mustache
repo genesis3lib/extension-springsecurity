@@ -23,10 +23,10 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    @Value("${app.users.root}")
+    @Value("${app.users.root:}")
     private String rootUser;
 
-    @Value("${app.users.admins}")
+    @Value("${app.users.admins:}")
     private Set<String> adminUsers;
 
     public Optional<UserEntity> findByEmail(String email) {
